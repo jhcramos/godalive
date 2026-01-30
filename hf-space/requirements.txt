@@ -1,0 +1,7 @@
+qwen-tts>=0.1.0
+kokoro>=0.9.4
+soundfile
+numpy
+gradio>=4.0
+misaki[pt]
+espeak-ng
