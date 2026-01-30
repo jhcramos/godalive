@@ -5,10 +5,22 @@
 const TTSEngine = {
   // Configuration
   config: {
-    // Primary: Qwen3-TTS via HuggingFace Inference API
+    // Tier 0 (IMMEDIATE): Edge TTS via local server — FREE, high quality, PT-BR + EN
+    edgeTTS: {
+      serverUrl: 'http://localhost:8765',
+      presets: {
+        en: 'jesus_en',  // AndrewMultilingualNeural (Warm, Confident, Authentic)
+        pt: 'jesus_pt',  // AntonioNeural (Friendly, Positive)
+        es: 'jesus_es',
+        fr: 'jesus_fr',
+        it: 'jesus_it',
+        de: 'jesus_de',
+      },
+    },
+    // Tier 1: Qwen3-TTS via HuggingFace (future — needs HF account)
     qwen: {
       model: 'Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign',
-      apiUrl: 'https://api-inference.huggingface.co/models/Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign',
+      apiUrl: 'https://router.huggingface.co/hf-inference/models/Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign',
       spaceUrl: null, // Will be set when HF Space is deployed
       voiceInstruction: 'A warm, deep male voice with gentle authority and spiritual compassion. Calm and reassuring, like a wise teacher speaking with love and wisdom. Speak slowly and clearly.',
       voiceInstructionPT: 'Uma voz masculina profunda e calorosa com autoridade gentil e compaixão espiritual. Calma e reconfortante, como um professor sábio falando com amor e sabedoria. Fale devagar e claramente.',
@@ -29,8 +41,9 @@ const TTSEngine = {
       voicePreference: ['Google UK English Male', 'Daniel', 'Microsoft David'],
     },
     // State
-    currentEngine: 'auto', // 'qwen' | 'kokoro' | 'webspeech' | 'auto'
+    currentEngine: 'auto', // 'edge' | 'qwen' | 'kokoro' | 'webspeech' | 'auto'
     hfToken: null,
+    edgeTTSAvailable: false,
   },
 
   // Audio context for playback
@@ -39,9 +52,23 @@ const TTSEngine = {
   currentSource: null,
 
   // ---- Initialization ----
-  init() {
+  async init() {
     this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
     this.config.hfToken = localStorage.getItem('godalive_hf_token');
+    
+    // Check if Edge TTS server is available
+    try {
+      const edgeUrl = localStorage.getItem('godalive_edge_url') || this.config.edgeTTS.serverUrl;
+      const res = await fetch(`${edgeUrl}/health`, { signal: AbortSignal.timeout(2000) });
+      if (res.ok) {
+        this.config.edgeTTSAvailable = true;
+        this.config.edgeTTS.serverUrl = edgeUrl;
+        console.log('[TTS] ✅ Edge TTS server detected at', edgeUrl);
+      }
+    } catch (e) {
+      console.log('[TTS] Edge TTS server not available, will use fallbacks');
+    }
+
     console.log('[TTS] Engine initialized. Mode:', this.config.currentEngine);
     return this;
   },
@@ -78,14 +105,22 @@ const TTSEngine = {
     console.log(`[TTS] Speaking (${lang}, engine: ${engine}):`, text.substring(0, 50) + '...');
 
     try {
+      if (engine === 'auto' || engine === 'edge') {
+        // Try Edge TTS first (FREE, best quality, PT-BR + EN)
+        if (this.config.edgeTTSAvailable) {
+          const audio = await this.speakEdgeTTS(text, lang);
+          if (audio) return this.playAudio(audio);
+        }
+      }
+
       if (engine === 'auto' || engine === 'qwen') {
-        // Try Qwen3-TTS first
+        // Try Qwen3-TTS (HuggingFace)
         const audio = await this.speakQwen(text, lang);
         if (audio) return this.playAudio(audio);
       }
 
       if (engine === 'auto' || engine === 'kokoro') {
-        // Try Kokoro fallback
+        // Try Kokoro fallback (browser ONNX)
         const audio = await this.speakKokoro(text, lang);
         if (audio) return this.playAudio(audio);
       }
@@ -97,6 +132,34 @@ const TTSEngine = {
       console.warn('[TTS] All engines failed, falling back to Web Speech:', err);
       return this.speakWebSpeech(text, lang);
     }
+  },
+
+  // ---- Edge TTS (FREE Microsoft voices) ----
+  async speakEdgeTTS(text, lang = 'en') {
+    try {
+      const serverUrl = this.config.edgeTTS.serverUrl;
+      const preset = this.config.edgeTTS.presets[lang] || 'jesus_en';
+
+      console.log(`[TTS/Edge] Generating (${lang}, preset: ${preset})...`);
+
+      const response = await fetch(`${serverUrl}/tts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, lang, preset }),
+      });
+
+      if (response.ok) {
+        const arrayBuffer = await response.arrayBuffer();
+        if (arrayBuffer.byteLength > 100) {
+          console.log('[TTS/Edge] ✅ Audio received:', arrayBuffer.byteLength, 'bytes');
+          return arrayBuffer;
+        }
+      }
+      console.warn('[TTS/Edge] Response not ok:', response.status);
+    } catch (err) {
+      console.warn('[TTS/Edge] Failed:', err.message);
+    }
+    return null;
   },
 
   // ---- Qwen3-TTS (HuggingFace) ----
