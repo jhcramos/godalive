@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="#fff8e7" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#d4a853" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#d4a853" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="faceGrad" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#e8c49a"/>
+      <stop offset="100%" stop-color="#d4a878"/>
+    </radialGradient>
+    <radialGradient id="outerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff8e7" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#d4a853" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#d4a853" stop-opacity="0.15"/>
+    </radialGradient>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="robeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f0e6d3"/>
+      <stop offset="100%" stop-color="#c9b896"/>
+    </linearGradient>
+    <linearGradient id="cloakGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b2323"/>
+      <stop offset="100%" stop-color="#6b1a1a"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5a3825"/>
+      <stop offset="100%" stop-color="#3d2517"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer glow circle -->
+  <circle cx="200" cy="200" r="195" fill="url(#outerGlow)"/>
+  
+  <!-- Halo -->
+  <ellipse cx="200" cy="130" rx="110" ry="105" fill="url(#halo)" filter="url(#softGlow)"/>
+  
+  <!-- Hair back -->
+  <ellipse cx="200" cy="165" rx="75" ry="90" fill="url(#hairGrad)"/>
+  
+  <!-- Hair flowing down left -->
+  <path d="M130 160 Q120 220 135 280 Q140 290 150 285 Q145 230 140 180 Z" fill="url(#hairGrad)"/>
+  <!-- Hair flowing down right -->
+  <path d="M270 160 Q280 220 265 280 Q260 290 250 285 Q255 230 260 180 Z" fill="url(#hairGrad)"/>
+  
+  <!-- Neck -->
+  <rect x="185" y="210" width="30" height="30" rx="5" fill="#d4a878"/>
+  
+  <!-- Robe / body -->
+  <path d="M140 235 Q135 260 120 340 L120 400 L280 400 L280 340 Q265 260 260 235 Q230 225 200 225 Q170 225 140 235 Z" fill="url(#robeGrad)"/>
+  
+  <!-- Cloak/mantle -->
+  <path d="M140 235 Q130 270 125 340 L125 400 L170 400 L185 280 Q175 250 140 235 Z" fill="url(#cloakGrad)" opacity="0.9"/>
+  <path d="M260 235 Q270 270 275 340 L275 400 L230 400 L215 280 Q225 250 260 235 Z" fill="url(#cloakGrad)" opacity="0.9"/>
+  
+  <!-- Robe neckline -->
+  <path d="M175 235 Q200 255 225 235" fill="none" stroke="#c9b896" stroke-width="2"/>
+  
+  <!-- Face -->
+  <ellipse cx="200" cy="160" rx="55" ry="65" fill="url(#faceGrad)"/>
+  
+  <!-- Eyebrows -->
+  <path d="M172 140 Q180 135 192 138" fill="none" stroke="#5a3825" stroke-width="2" stroke-linecap="round"/>
+  <path d="M208 138 Q220 135 228 140" fill="none" stroke="#5a3825" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="182" cy="150" rx="8" ry="5" fill="#3d2517"/>
+  <ellipse cx="218" cy="150" rx="8" ry="5" fill="#3d2517"/>
+  <!-- Eye shine -->
+  <circle cx="184" cy="148" r="2" fill="#fff8e7" opacity="0.7"/>
+  <circle cx="220" cy="148" r="2" fill="#fff8e7" opacity="0.7"/>
+  
+  <!-- Nose -->
+  <path d="M200 152 Q196 165 198 170 Q200 172 202 170 Q204 165 200 152" fill="none" stroke="#c49a6c" stroke-width="1.5"/>
+  
+  <!-- Gentle smile -->
+  <path d="M185 180 Q200 192 215 180" fill="none" stroke="#a07850" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Beard -->
+  <path d="M160 175 Q158 195 165 215 Q180 235 200 240 Q220 235 235 215 Q242 195 240 175" 
+        fill="url(#hairGrad)" opacity="0.85"/>
+  <!-- Beard texture lines -->
+  <path d="M175 195 Q180 220 195 235" fill="none" stroke="#4a2e1a" stroke-width="0.5" opacity="0.3"/>
+  <path d="M200 195 Q200 220 200 240" fill="none" stroke="#4a2e1a" stroke-width="0.5" opacity="0.3"/>
+  <path d="M225 195 Q220 220 205 235" fill="none" stroke="#4a2e1a" stroke-width="0.5" opacity="0.3"/>
+  
+  <!-- Mustache -->
+  <path d="M182 178 Q190 175 200 178 Q210 175 218 178 Q215 183 200 185 Q185 183 182 178 Z" fill="#4a2e1a" opacity="0.7"/>
+  
+  <!-- Hair front/parting -->
+  <path d="M145 145 Q150 105 200 95 Q250 105 255 145 Q240 115 200 108 Q160 115 145 145 Z" fill="url(#hairGrad)"/>
+  
+  <!-- Hands in prayer/blessing position -->
+  <ellipse cx="200" cy="350" rx="18" ry="12" fill="#d4a878" transform="rotate(-5 200 350)"/>
+  <ellipse cx="200" cy="348" rx="16" ry="10" fill="#e8c49a" transform="rotate(-5 200 348)"/>
+  
+  <!-- Subtle cross on chest -->
+  <line x1="200" y1="265" x2="200" y2="295" stroke="#d4a853" stroke-width="2" opacity="0.4"/>
+  <line x1="190" y1="275" x2="210" y2="275" stroke="#d4a853" stroke-width="2" opacity="0.4"/>
+</svg>

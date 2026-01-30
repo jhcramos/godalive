@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a2e">
+  <meta name="description" content="GodAlive — Speak with Jesus. AI-powered spiritual guidance with compassion, wisdom, and Biblical truth.">
+  
+  <title>GodAlive — Speak with Jesus</title>
+  
+  <!-- Favicon (golden cross) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>✝️</text></svg>">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Background Effects -->
+  <div class="bg-effects">
+    <div class="ambient-glow"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+  </div>
+
+  <!-- App -->
+  <div id="app">
+    
+    <!-- ========== LANDING SCREEN ========== -->
+    <div class="landing" id="landing">
+      
+      <!-- Avatar -->
+      <div class="avatar-container" id="avatar-main">
+        <div class="avatar-glow"></div>
+        <div class="sound-waves"></div>
+        <div class="sound-waves"></div>
+        <div class="sound-waves"></div>
+        <img src="assets/jesus-avatar.svg" alt="Jesus" class="avatar-img">
+      </div>
+
+      <!-- Title -->
+      <h1 class="landing-title">GodAlive</h1>
+      <p class="landing-subtitle">
+        <em>"Ask, and it shall be given to you"</em><br>
+        Speak with Jesus — receive wisdom, comfort, and guidance from the Word of God.
+      </p>
+
+      <!-- CTA -->
+      <button class="cta-btn" id="cta-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Speak with Jesus
+      </button>
+
+      <!-- API status -->
+      <div class="api-status demo" id="api-status">
+        <span class="api-status-dot"></span>
+        <span id="api-status-text">Demo Mode</span>
+      </div>
+
+      <!-- Settings link -->
+      <button class="demo-badge" id="landing-settings-btn" style="cursor: pointer; border: 1px solid rgba(212,168,83,0.2); background: rgba(212,168,83,0.06);">
+        ⚙️ Settings — Add API Key for full AI
+      </button>
+    </div>
+
+    <!-- ========== CHAT SCREEN ========== -->
+    <div class="chat-screen" id="chat-screen">
+      
+      <!-- Header -->
+      <div class="chat-header">
+        <button class="icon-btn" id="back-btn" title="Back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+
+        <div class="avatar-sm" id="chat-avatar-container">
+          <img src="assets/jesus-avatar.svg" alt="Jesus">
+          <div class="status-dot"></div>
+        </div>
+
+        <div class="chat-header-info">
+          <h2>Jesus</h2>
+          <span id="header-status">online</span>
+        </div>
+
+        <div class="header-actions">
+          <button class="icon-btn" id="settings-btn" title="Settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="chat-messages" id="chat-messages">
+        <div class="welcome-message">
+          <span class="verse">"Come to me, all you who are weary and burdened, and I will give you rest."</span>
+          <span class="ref">— Matthew 11:28</span>
+          <br><br>
+          Ask anything about life, faith, love, suffering, or the Scriptures.
+        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="chat-input-container">
+        <div class="chat-input-wrapper">
+          <input 
+            type="text" 
+            id="chat-input" 
+            class="chat-input" 
+            placeholder="Type your message..." 
+            autocomplete="off"
+            autofocus
+          >
+          <button class="mic-btn" id="mic-btn" title="Voice input">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </button>
+          <button class="send-btn" id="send-btn" title="Send">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+        <div class="input-hint">Press Enter to send • Voice coming soon</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stop Speech Button -->
+  <button class="stop-speech-btn" id="stop-speech-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <rect x="4" y="4" width="16" height="16" rx="2"/>
+    </svg>
+    Stop speaking
+  </button>
+
+  <!-- ========== SETTINGS OVERLAY ========== -->
+  <div class="settings-overlay" id="settings-overlay">
+    <div class="settings-panel">
+      <h3>⚙️ Settings</h3>
+
+      <div class="settings-group">
+        <label>AI Provider</label>
+        <select id="api-provider">
+          <option value="anthropic">Anthropic (Claude)</option>
+          <option value="openai">OpenAI (GPT)</option>
+        </select>
+      </div>
+
+      <div class="settings-group">
+        <label>API Key</label>
+        <input type="password" id="api-key-input" placeholder="sk-ant-... or sk-...">
+        <p class="hint">Your key stays in your browser (localStorage). Never sent to us.</p>
+      </div>
+
+      <div class="settings-group">
+        <label>Voice Response</label>
+        <div class="toggle-row">
+          <span>Jesus speaks aloud</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="voice-toggle" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <label>Language</label>
+        <select id="language-select">
+          <option value="auto">Auto-detect</option>
+          <option value="en-US">English</option>
+          <option value="pt-BR">Português (Brasil)</option>
+          <option value="es-ES">Español</option>
+          <option value="fr-FR">Français</option>
+          <option value="it-IT">Italiano</option>
+          <option value="de-DE">Deutsch</option>
+        </select>
+      </div>
+
+      <div class="settings-actions">
+        <button class="btn-save" id="settings-save">Save Settings</button>
+        <button class="btn-close" id="settings-close">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
